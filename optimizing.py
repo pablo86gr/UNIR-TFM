@@ -31,8 +31,6 @@ y = dataset["FMM"]
 # Dividimos el dataset entre datos de entrenamiento (80%) y de validacion(20%)
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=seed, shuffle=True)
 
-
-
 #Optimizacion de parametros
 # Create hyperparameter space
 epochs = [512,1024]
@@ -67,5 +65,3 @@ for i in capa1:
                 print("2ª capa: %d" % (j))
                 print("Score: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
                 print(grid_result.best_params_)
-
-
