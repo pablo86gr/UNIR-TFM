@@ -59,6 +59,7 @@ for i in capa1:
                 kfold = StratifiedKFold(n_splits=10, shuffle=True)
                 #evaluamos el modelo utilizando validacion cruzada
                 results = cross_val_score(estimator, X_test, y_test, cv=kfold)
+                #Realizamos una busqyeda de los parametros batch_size y epochs para la configuracion de capas actual
                 grid = GridSearchCV(estimator=estimator, cv=3, param_grid=hyperparameters)
                 grid_result = grid.fit(X_train, y_train)
                 print("1ª capa: %d" % (i))
