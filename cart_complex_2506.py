@@ -117,13 +117,24 @@ kfold = StratifiedKFold(n_splits=10, shuffle=True)
 results = cross_val_score(estimator, X_test, y_test, cv=kfold)
 print("Baseline: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
 
+def create_baseline_opt():
+    #creamos el modelo
+    model = Sequential()
+    #añadimos capas
+    model.add (Dense (capa1, input_dim = X_train.shape [1], activation= 'relu', kernel_initializer = 'he_normal'))
+    model.add (Dense (36, input_dim = X_train.shape [1], activation= 'relu', kernel_initializer = 'he_normal'))
+    model.add (Dense (1, activation='sigmoid'))
+    # compila el modelo keras
+    model.compile (loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
+    return model
+
 #Optimizacion de parametros
 # Create hyperparameter space
-# epochs = [256,512]
-# batches = [12,24]
-# optimizers = ['rmsprop', 'adam']
-# capa1 = [5, 10, 15]
-# capa2 = [18, 36, 72]
+epochs = [256,512]
+batches = [12,24]
+optimizers = [['rmsprop'], ['adam']]
+capa1 = [11, 22, 33]
+capa2 = [18, 36, 72]
 
 # # Create hyperparameter options
 # # hyperparameters = dict(optimizer=optimizers, epochs=epochs, batch_size=batches)
@@ -133,3 +144,13 @@ print("Baseline: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
 # # Fit grid search
 # grid_result = grid.fit(X_train, y_train)
 # print(grid_result.best_params_)
+
+for x in capa1:
+    #compilamos el modelo
+    estimator = KerasClassifier(build_fn=create_baseline_opt, epochs=256, batch_size=24, verbose=0)
+    kfold = StratifiedKFold(n_splits=10, shuffle=True)
+    #evaluamos el modelo utilizando validacion cruzada
+    results = cross_val_score(estimator, X_test, y_test, cv=kfold)
+    print("We're on time %d" % (x))
+    print("Variando las neuronas de la capa 1: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
+    
