@@ -1,22 +1,8 @@
 # Imports
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import matplotlib.image as pltimg
-import pydotplus
-import tensorflow as tf 
 
-from sklearn.preprocessing import MinMaxScaler
-from tensorflow import keras
-from tensorflow.keras import layers
 from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
-from sklearn import metrics 
-from sklearn.metrics import confusion_matrix
-from sklearn.metrics import classification_report
-from sklearn.metrics import roc_auc_score
-from sklearn import tree
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from sklearn.model_selection import StratifiedKFold
