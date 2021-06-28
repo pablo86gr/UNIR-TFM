@@ -33,36 +33,35 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_
 
 #Optimizacion de parametros
 # Create hyperparameter space
-epochs = [512,1024]
-batches = [24, 48]
+epochs = [1024, 2048]
+batches = [32, 64]
 # optimizers = ['adam']
-capa1 = [22, 33]
-capa2 = [18, 36]
+capa1 = [32, 64, 128]
+capa2 = [16, 32, 64, 128]
 hyperparameters = dict(epochs=epochs, batch_size=batches)
 
 
 for i in capa1:
     for j in capa2:
-            # for m in batches:
-                def create_baseline_opt():
-                    #creamos el modelo
-                    model = Sequential()
-                    #añadimos capas
-                    model.add (Dense (i, input_dim = X_train.shape [1], activation= 'relu', kernel_initializer = 'he_normal'))
-                    model.add (Dense (j, input_dim = X_train.shape [1], activation= 'relu', kernel_initializer = 'he_normal'))
-                    model.add (Dense (1, activation='sigmoid'))
-                    # compila el modelo keras
-                    model.compile (loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
-                    return model
-                #compilamos el modelo
-                estimator = KerasClassifier(build_fn=create_baseline_opt, epochs=512, batch_size=24, verbose=0)
-                kfold = StratifiedKFold(n_splits=10, shuffle=True)
-                #evaluamos el modelo utilizando validacion cruzada
-                results = cross_val_score(estimator, X_test, y_test, cv=kfold)
-                #Realizamos una busqyeda de los parametros batch_size y epochs para la configuracion de capas actual
-                grid = GridSearchCV(estimator=estimator, cv=3, param_grid=hyperparameters)
-                grid_result = grid.fit(X_train, y_train)
-                print("1ª capa: %d" % (i))
-                print("2ª capa: %d" % (j))
-                print("Score: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
-                print(grid_result.best_params_)
+        def create_baseline_opt():
+            #creamos el modelo
+            model = Sequential()
+            #añadimos capas
+            model.add (Dense (i, input_dim = X_train.shape [1], activation= 'relu', kernel_initializer = 'he_normal'))
+            model.add (Dense (j, input_dim = X_train.shape [1], activation= 'relu', kernel_initializer = 'he_normal'))
+            model.add (Dense (1, activation='sigmoid'))
+            # compila el modelo keras
+            model.compile (loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
+            return model
+        #compilamos el modelo
+        estimator = KerasClassifier(build_fn=create_baseline_opt, epochs=512, batch_size=24, verbose=0)
+        kfold = StratifiedKFold(n_splits=10, shuffle=True)
+        #evaluamos el modelo utilizando validacion cruzada
+        results = cross_val_score(estimator, X_test, y_test, cv=kfold)
+        #Realizamos una busqyeda de los parametros batch_size y epochs para la configuracion de capas actual
+        grid = GridSearchCV(estimator=estimator, cv=3, param_grid=hyperparameters)
+        grid_result = grid.fit(X_train, y_train)
+        print("1ª capa: %d" % (i))
+        print("2ª capa: %d" % (j))
+        print("Score: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
+        print(grid_result.best_params_)
