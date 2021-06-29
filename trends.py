@@ -1,13 +1,12 @@
-#Obtenido de https://www.honchosearch.com/blog/seo/how-to-use-python-pytrends-to-automate-google-trends-data/
+# Basado en https://www.honchosearch.com/blog/seo/how-to-use-python-pytrends-to-automate-google-trends-data/
 
 from pytrends.request import TrendReq
 import pandas as pd
-import time
-startTime = time.time()
+
 pytrend = TrendReq(hl='en-GB', tz=360)
 
 colnames = ["keywords"]
-df = pd.read_csv("trends\keyword_list.csv", names=colnames)
+df = pd.read_csv("keyword_list.csv", names=colnames)
 df2 = df["keywords"].values.tolist()
 # df2.remove("keywords")
 
@@ -27,6 +26,3 @@ for x in range(0,len(df2)):
 
 result = pd.concat(dataset, axis=1)
 result.to_csv('search_trends_SN.csv')
-
-executionTime = (time.time() - startTime)
-print('Execution time in sec.: ' + str(executionTime))
