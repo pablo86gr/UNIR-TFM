@@ -74,26 +74,3 @@ img = pltimg.imread("CARTdecisiontree.png")
 imgplot = plt.imshow(img)
 print("-----------------------------------------")
 print()
-
-
-#---------------
-#- RED NEURONAL
-#---------------
-
-def create_baseline():
-    #creamos el modelo
-    model = Sequential()
-    #añadimos capas
-    model.add (Dense (11, input_dim = X_train.shape [1], activation= 'relu', kernel_initializer = 'he_normal'))
-    model.add (Dense (36, input_dim = X_train.shape [1], activation= 'relu', kernel_initializer = 'he_normal'))
-    model.add (Dense (1, activation='sigmoid'))
-    # compila el modelo keras
-    model.compile (loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
-    return model
-
-#compilamos el modelo
-estimator = KerasClassifier(build_fn=create_baseline, epochs=256, batch_size=24, verbose=0)
-kfold = StratifiedKFold(n_splits=10, shuffle=True)
-#evaluamos el modelo utilizando validacion cruzada
-results = cross_val_score(estimator, X_test, y_test, cv=kfold)
-print("Baseline: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
