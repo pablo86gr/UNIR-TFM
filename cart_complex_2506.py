@@ -44,7 +44,7 @@ X = dataset[dataset.columns[:-1]]
 y = dataset["FMM"]
 
 # Dividimos el dataset entre datos de entrenamiento (80%) y de validacion(20%)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=seed, shuffle=True)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=seed, shuffle=True)
 
 # ÁRBOLES DE DECISION - CART
 print("\n\nArboles de decisión. Modelo CART:")
