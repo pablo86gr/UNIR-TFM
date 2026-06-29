@@ -39,7 +39,7 @@ El proyecto está pensado para **Python 3** y usa, como mínimo:
 - `pydotplus`
 - `pytrends`
 
-> No hay `requirements.txt` en el repo. Conviene usar un entorno virtual.
+> El repo ya incluye un `requirements.txt` mínimo. Conviene usar un entorno virtual.
 
 ## Ejecución
 
